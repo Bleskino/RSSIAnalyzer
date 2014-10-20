@@ -120,13 +120,13 @@ public class Analyzer extends Activity {
             wifiList = mainWifi.getScanResults();
 
             for(int i = 0; i < wifiList.size(); i++){
-                int freq;
+                int channel;
                 if ((wifiList.get(i).frequency) >= 2412 && (wifiList.get(i).frequency) <= 2484) {
-                    freq= ((wifiList.get(i).frequency) - 2412) / 5 + 1;
+                    channel= ((wifiList.get(i).frequency) - 2412) / 5 + 1;
                 } else if ((wifiList.get(i).frequency) >= 5170 && (wifiList.get(i).frequency) <= 5825) {
-                    freq= ((wifiList.get(i).frequency) - 5170) / 5 + 34;
+                    channel= ((wifiList.get(i).frequency) - 5170) / 5 + 34;
                 } else {
-                    freq = -1;
+                    channel = -1;
                 }
 
                 sb.append("SSID: " + (wifiList.get(i).SSID) + "\n");
@@ -134,7 +134,7 @@ public class Analyzer extends Activity {
                 sb.append("ZABEZPEČENIE: " + (wifiList.get(i).capabilities) + "\n");
                 sb.append("FREKVENCIA: " + (wifiList.get(i).frequency) + " Hz \n");
                 sb.append("RSSI: " + (wifiList.get(i).level) + "dBm \n");
-                sb.append("KANÁL: " + freq + "\n");
+                sb.append("KANÁL: " + channel + "\n");
 
                 //timestamp je až od API 17
                 sb.append("\n");
