@@ -9,20 +9,47 @@
     tools:context=".Analyzer">
 
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ulož"
+        android:id="@+id/button1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Skenuj"
+        android:id="@+id/button2"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <ScrollView
         android:id="@+id/scroller"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical"
-        android:fillViewport="true">
-        <TextView
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/text_field"
-            android:enabled="false"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#ff250167"/>
+        android:fillViewport="true"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/button1">
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/text_field"
+        android:enabled="false"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ff250167"
+        android:layout_below="@+id/button1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/scroller" />
     </ScrollView>
+
+
 
 
 </RelativeLayout>
