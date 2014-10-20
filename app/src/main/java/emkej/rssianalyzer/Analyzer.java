@@ -1,36 +1,70 @@
 package emkej.rssianalyzer;
 
-import android.support.v7.app.ActionBarActivity;
+import java.util.List;
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 
-public class Analyzer extends ActionBarActivity {
+public class Analyzer extends Activity {
+    TextView mainText;
+    WifiManager mainWifi;
+    WifiReceiver receiverWifi;
+    List<ScanResult> wifiList;
+    StringBuilder sb = new StringBuilder();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analyzer);
+        mainText = (TextView) findViewById(R.id.text_field);
+        mainWifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        receiverWifi = new WifiReceiver();
+        registerReceiver(receiverWifi, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+        mainWifi.startScan();
+        // save test
     }
 
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.analyzer, menu);
-        return true;
+        menu.add("Obnoviť");
+        return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        mainWifi.startScan();
+        return super.onMenuItemSelected(featureId,item);
+    }
+
+
+    protected void onPause() {
+        unregisterReceiver(receiverWifi);
+        super.onPause();
+    }
+
+    protected void onResume() {
+        registerReceiver(receiverWifi, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+        super.onResume();
+    }
+
+    class WifiReceiver extends BroadcastReceiver {
+        public void onReceive(Context context, Intent intent) {
+
+            sb = new StringBuilder();
+            wifiList = mainWifi.getScanResults();
+            for(int i = 0; i < wifiList.size(); i++){
+                sb.append((wifiList.get(i)).toString() + "\n\n");
+
+            }
+            mainText.setText(sb);
+
         }
-        return super.onOptionsItemSelected(item);
     }
 }
