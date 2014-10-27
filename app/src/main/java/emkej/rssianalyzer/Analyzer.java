@@ -119,7 +119,7 @@ public class Analyzer extends Activity {
     public void saveToFile() {
         edittxt=(EditText)findViewById(R.id.editText1);
         filename=edittxt.getText().toString();
-        File file= new File(Environment.getExternalStorageDirectory().getPath() + "/" + filename + ".odt");
+        File file= new File(Environment.getExternalStorageDirectory().getPath() + "/" + filename + ".txt");
         try {
             file.createNewFile();
             buf = new BufferedWriter(new FileWriter(file));
