@@ -5,5 +5,12 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="refresh">Obnoviť</string>
+    <string name="title_activity_scanner">Scanner</string>
+    <string name="menu">Menu</string>
+    <string name="scanning">Scanning</string>
+    <string name="title_activity_scan_save">Scan_save</string>
+    <string name="scanning_save">Scanning with save</string>
+    <string name="title_activity_scan_once">Scan_once</string>
+    <string name="scan_once">One Scan One Save</string>
 
 </resources>

@@ -7,8 +7,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-feature android:name="android.hardware.wifi"
-        android:required="true"/>
+
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -16,14 +19,29 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".Analyzer"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Scanner"
+            android:label="@string/scanning"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".Scan_save"
+            android:label="@string/scanning_save"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".Scan_once"
+            android:label="@string/scan_once"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
-
 
 </manifest>
