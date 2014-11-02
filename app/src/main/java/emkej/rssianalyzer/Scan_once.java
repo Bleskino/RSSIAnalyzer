@@ -17,7 +17,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 
 public class Scan_once extends Activity {
@@ -26,7 +25,7 @@ public class Scan_once extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             long actualTime = System.nanoTime();
-            sb.append("1;").append(TimeUnit.MILLISECONDS.convert(actualTime-savedTime, TimeUnit.NANOSECONDS)).append(";"); // ak pouzijem nanotime tak treba aspon na milisekundy lebo inac to je 9-10 ciferne cislo,, pridal som tam fixne 1 ako cislo merania nech sa lepsie parsuju vysledky
+            sb.append("1;").append(actualTime-savedTime).append(";");
             for (ScanResult result : Wifi_man_once.getScanResults()) {
             int channel;
             if ((result.frequency) >= 2412 && (result.frequency) <= 2484) {

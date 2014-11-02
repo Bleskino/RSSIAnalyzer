@@ -21,7 +21,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 
 public class Scanner extends Activity {
@@ -33,17 +32,17 @@ public class Scanner extends Activity {
             builder.append(receiveCount);
             wifiMan.startScan();
             receiveCount++;
-            builder.append(";").append(TimeUnit.MILLISECONDS.convert(nowTime- lastTime, TimeUnit.NANOSECONDS)).append(";"); // ak pouzijem nanotime tak treba aspon na milisekundy lebo inac to je 9-10 ciferne cislo
+            builder.append(";").append(nowTime- lastTime).append(";");
             lastTime = nowTime;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                for (ScanResult result : wifiMan.getScanResults()) { //for each - rychlejsi na provedeni procesorem, rychleji ziska dany prvek, scan results neni potreba pred tim davat do promenne
+                for (ScanResult result : wifiMan.getScanResults()) {
                     Long prevTimeStamp = hashMap.get(result.BSSID);
                     hashMap.put(result.BSSID, result.timestamp);
                     builder.append(result.BSSID).append("=");
                     if (prevTimeStamp == null) {
                         builder.append("0");
                     } else {
-                        builder.append(result.timestamp - prevTimeStamp); //deleni by snizilo presnost.. ak nevadi ze je to v takom skaredom tvare
+                        builder.append(result.timestamp - prevTimeStamp);
                     }
                     builder.append(";");
                 }

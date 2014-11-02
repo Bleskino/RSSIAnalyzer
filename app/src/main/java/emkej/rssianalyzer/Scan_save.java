@@ -21,7 +21,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 
 public class Scan_save extends Activity {
@@ -35,8 +34,8 @@ public class Scan_save extends Activity {
             str_builder.append(counterOfReceive);
             wifi_manager.startScan();
             counterOfReceive++;
-            str_onscreen.append(";").append(TimeUnit.MILLISECONDS.convert(endTime- startTime, TimeUnit.NANOSECONDS)).append(";"); // ak pouzijem nanotime tak treba aspon na milisekundy lebo inac to je 9-10 ciferne cislo
-            str_builder.append(";").append(TimeUnit.MILLISECONDS.convert(endTime- startTime, TimeUnit.NANOSECONDS)).append(";");  // ak pouzijem nanotime tak treba aspon na milisekundy lebo inac to je 9-10 ciferne cislo
+            str_onscreen.append(";").append(endTime- startTime).append(";");
+            str_builder.append(";").append(endTime- startTime).append(";");
             startTime = endTime;
 
                 for (ScanResult result : wifi_manager.getScanResults()) {
@@ -48,8 +47,8 @@ public class Scan_save extends Activity {
                             str_onscreen.append("0");
                             str_builder.append("0");
                         } else {
-                            str_onscreen.append(result.timestamp - prevTimeStamp);  //deleni by snizilo presnost.. ak nevadi ze je to v takom skaredom tvare
-                            str_builder.append(result.timestamp - prevTimeStamp);   //deleni by snizilo presnost.. ak nevadi ze je to v takom skaredom tvare
+                            str_onscreen.append(result.timestamp - prevTimeStamp);
+                            str_builder.append(result.timestamp - prevTimeStamp);
                         }
                         str_onscreen.append(";");
                         str_builder.append(";");
@@ -70,7 +69,9 @@ public class Scan_save extends Activity {
                             .append(result.capabilities).append(";").append(result.frequency).append(";")
                             .append(result.level).append(";").append(channel).append(";");
                     str_builder.append(System.getProperty("line.separator"));
+
                 }
+                str_builder.append(System.getProperty("line.separator"));
                 str_onscreen.append(System.getProperty("line.separator"));
             }
 
