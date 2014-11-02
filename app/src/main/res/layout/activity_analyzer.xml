@@ -35,7 +35,7 @@
         android:scrollbars="vertical"
         android:fillViewport="true"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/button3">
+        android:layout_below="@+id/button2">
     <TextView
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/text_field"
@@ -48,16 +48,6 @@
         android:layout_alignParentStart="true"
         android:layout_alignBottom="@+id/scroller" />
     </ScrollView>
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="End of Life"
-        android:id="@+id/button3"
-        android:layout_below="@+id/button2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

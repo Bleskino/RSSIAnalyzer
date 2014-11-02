@@ -9,80 +9,99 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 public class Scanner extends Activity {
-    WifiManager Wifi_man;
-    WifiReceiver rec_Wifi;
-    List<ScanResult> wifi_result;
-    Button button;
-    TextView txt;
-    long lastTime;
-    StringBuilder string_b = new StringBuilder();
-    int receive_count = 1;
-    HashMap<String, String> hashmap = new HashMap<String, String>();
-
+    private WifiManager wifiMan;
+    private BroadcastReceiver recWifi = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            long nowTime = System.nanoTime();
+            builder.append(receiveCount);
+            wifiMan.startScan();
+            receiveCount++;
+            builder.append(";").append(TimeUnit.MILLISECONDS.convert(nowTime- lastTime, TimeUnit.NANOSECONDS)).append(";"); // ak pouzijem nanotime tak treba aspon na milisekundy lebo inac to je 9-10 ciferne cislo
+            lastTime = nowTime;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                for (ScanResult result : wifiMan.getScanResults()) { //for each - rychlejsi na provedeni procesorem, rychleji ziska dany prvek, scan results neni potreba pred tim davat do promenne
+                    Long prevTimeStamp = hashMap.get(result.BSSID);
+                    hashMap.put(result.BSSID, result.timestamp);
+                    builder.append(result.BSSID).append("=");
+                    if (prevTimeStamp == null) {
+                        builder.append("0");
+                    } else {
+                        builder.append(result.timestamp - prevTimeStamp); //deleni by snizilo presnost.. ak nevadi ze je to v takom skaredom tvare
+                    }
+                    builder.append(";");
+                }
+            }
+            builder.append(System.getProperty("line.separator"));
+            txt.setText(builder);
+        }
+    };
+    private TextView txt;
+    private long lastTime;
+    private StringBuilder builder = new StringBuilder();
+    private int receiveCount = 1;
+    private Map<String, Long> hashMap = new HashMap<String, Long>();
+    private BufferedWriter bw;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
 
-        button = (Button) findViewById(R.id.btn_scan_stop);
+        Button button = (Button) findViewById(R.id.btn_scan_stop);
         txt = (TextView) findViewById(R.id.txtview_scan);
-        Wifi_man = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        rec_Wifi = new WifiReceiver();
-        registerReceiver(rec_Wifi, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
-        Wifi_man.startScan();
-        lastTime = System.currentTimeMillis();
+        wifiMan = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        registerReceiver(recWifi, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+        wifiMan.startScan();
+        lastTime = System.nanoTime();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                unregisterReceiver(rec_Wifi);
+                saveToFile();
                 finish();
             }
         });
 
     }
-
-    class WifiReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            long nowTime = System.currentTimeMillis();
-            string_b.append(receive_count);
-            receive_count += 1;
-            string_b.append(";");
-            string_b.append(nowTime - lastTime);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                wifi_result=Wifi_man.getScanResults();
-                for (int i = 0; i < wifi_result.size(); i++) {
-                    if (!(hashmap.containsKey(wifi_result.get(i).BSSID))) {
-                        hashmap.put(wifi_result.get(i).BSSID, String.valueOf(wifi_result.get(i).timestamp));
-
-                    } else {
-                        string_b.append(";");
-                        string_b.append((wifi_result.get(i).timestamp - Long.parseLong(String.valueOf(hashmap.get(wifi_result.get(i).BSSID)))) / 1000);
-                        hashmap.put(wifi_result.get(i).BSSID, String.valueOf(wifi_result.get(i).timestamp));
-                    }
-
-                }
-
-
-            }else {
-                string_b.append(System.getProperty("line.separator"));
+    public void saveToFile() {
+        EditText edittxt=(EditText)findViewById(R.id.etext_scanner);
+        String name=edittxt.getText().toString();
+        File file= new File(Environment.getExternalStorageDirectory().getPath() + "/" + name + "_quick.txt");
+        try {
+            file.createNewFile();
+            bw = new BufferedWriter(new FileWriter(file));
+            bw.write(String.valueOf(builder));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                bw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-            string_b.append(System.getProperty("line.separator"));
-            txt.setText(string_b);
-            lastTime = nowTime;
-            Wifi_man.startScan();
         }
     }
-
+    protected void onPause() {
+        unregisterReceiver(recWifi);
+        super.onPause();
+    }
+    protected void onResume() {
+        registerReceiver(recWifi, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+        super.onResume();
+    }
 }
