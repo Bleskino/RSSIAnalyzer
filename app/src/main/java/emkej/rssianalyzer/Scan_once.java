@@ -92,7 +92,6 @@ public class Scan_once extends Activity {
     }
 
     protected void onResume() {
-        registerReceiver(rec_Wifi_once, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
         super.onResume();
     }
     protected void onPause() {

@@ -100,7 +100,6 @@ public class Scanner extends Activity {
         super.onPause();
     }
     protected void onResume() {
-        registerReceiver(recWifi, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
         super.onResume();
     }
 }

@@ -137,7 +137,6 @@ public class Scan_save extends Activity {
         super.onPause();
     }
     protected void onResume() {
-        registerReceiver(receiv_Wifi, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
         super.onResume();
     }
 
