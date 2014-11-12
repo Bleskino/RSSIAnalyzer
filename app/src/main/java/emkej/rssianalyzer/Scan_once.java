@@ -26,7 +26,7 @@ public class Scan_once extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             long actualTime = System.nanoTime();
-            sb.append("1;").append(actualTime-savedTime).append(";");
+
             for (ScanResult result : Wifi_man_once.getScanResults()) {
             int channel;
             if ((result.frequency) >= 2412 && (result.frequency) <= 2484) {
@@ -36,6 +36,7 @@ public class Scan_once extends Activity {
             } else {
                 channel = -999;
             }
+                sb.append(actualTime-savedTime).append(";");
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                     sb.append(result.timestamp).append(";");
                 }

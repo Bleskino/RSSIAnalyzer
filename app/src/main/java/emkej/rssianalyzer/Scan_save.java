@@ -30,15 +30,15 @@ public class Scan_save extends Activity {
         public void onReceive(Context context, Intent intent) {
             long endTime=System.nanoTime();
             str_onscreen.setLength(0);
-            str_onscreen.append(counterOfReceive);
-            str_builder.append(counterOfReceive);
             wifi_manager.startScan();
             counterOfReceive++;
-            str_onscreen.append(";").append(endTime- startTime).append(";");
-            str_builder.append(";").append(endTime- startTime).append(";");
-            startTime = endTime;
+            str_onscreen.append(counterOfReceive).append(";").append(endTime- startTime).append(";");
+
 
                 for (ScanResult result : wifi_manager.getScanResults()) {
+
+                    str_builder.append(counterOfReceive).append(";").append(endTime- startTime).append(";");
+
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                         Long prevTimeStamp = hash.get(result.BSSID);
                         hash.put(result.BSSID, result.timestamp);
@@ -72,6 +72,7 @@ public class Scan_save extends Activity {
                     str_builder.append(System.getProperty("line.separator"));
 
                 }
+            startTime = endTime;
                 str_builder.append(System.getProperty("line.separator"));
                 str_onscreen.append(System.getProperty("line.separator"));
             }
@@ -82,7 +83,7 @@ public class Scan_save extends Activity {
     private StringBuilder str_builder = new StringBuilder();
     private StringBuilder str_onscreen = new StringBuilder();
     private BufferedWriter buff;
-    private int counterOfReceive=1;
+    private int counterOfReceive=0;
     private long startTime;
 
     public void onCreate(Bundle savedInstanceState) {
