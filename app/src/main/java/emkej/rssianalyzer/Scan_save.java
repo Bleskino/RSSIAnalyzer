@@ -42,7 +42,8 @@ public class Scan_save extends Activity {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                         Long prevTimeStamp = hash.get(result.BSSID);
                         hash.put(result.BSSID, result.timestamp);
-                        str_onscreen.append(result.BSSID).append("=");
+                        str_onscreen.append(result.BSSID).append("=").append(result.timestamp).append("=");
+                        str_builder.append(result.timestamp).append(";");
                         if (prevTimeStamp == null) {
                             str_onscreen.append("0");
                             str_builder.append("0");

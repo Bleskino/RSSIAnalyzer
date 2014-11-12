@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -35,6 +36,9 @@ public class Scan_once extends Activity {
             } else {
                 channel = -999;
             }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    sb.append(result.timestamp).append(";");
+                }
                 sb.append(result.SSID).append(";").append(result.BSSID).append(";")
                         .append(result.capabilities).append(";").append(result.frequency).append(";")
                         .append(result.level).append(";").append(channel).append(";");

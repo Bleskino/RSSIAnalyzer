@@ -11,53 +11,33 @@
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Scanning with save"
         android:id="@+id/button1"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/button2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Scanning to death"
         android:id="@+id/button2"
-        android:layout_alignBottom="@+id/button1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <ScrollView
-        android:id="@+id/scroller"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        android:fillViewport="true"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/button2">
-    <TextView
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/text_field"
-        android:enabled="false"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#ff250167"
-        android:layout_below="@+id/button1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/scroller" />
-    </ScrollView>
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/button1"
+        android:layout_alignEnd="@+id/button1" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="One Scan One Save"
         android:id="@+id/button4"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/button1"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginTop="50dp" />
 
 
 </RelativeLayout>

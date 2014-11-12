@@ -38,7 +38,7 @@ public class Scanner extends Activity {
                 for (ScanResult result : wifiMan.getScanResults()) {
                     Long prevTimeStamp = hashMap.get(result.BSSID);
                     hashMap.put(result.BSSID, result.timestamp);
-                    builder.append(result.BSSID).append("=");
+                    builder.append(result.BSSID).append("=").append(result.timestamp).append("=");
                     if (prevTimeStamp == null) {
                         builder.append("0");
                     } else {
