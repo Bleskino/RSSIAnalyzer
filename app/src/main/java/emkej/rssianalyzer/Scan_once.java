@@ -48,7 +48,10 @@ public class Scan_once extends Activity {
 
             }
             generalTextOnce.setText(sb);
-    }};
+            unregisterReceiver(rec_Wifi_once);
+    }
+
+    };
 
 
     private TextView generalTextOnce;
@@ -100,7 +103,6 @@ public class Scan_once extends Activity {
         super.onResume();
     }
     protected void onPause() {
-        unregisterReceiver(rec_Wifi_once);
         super.onPause();
     }
 }
