@@ -19,6 +19,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -116,10 +118,20 @@ public class Scan_save extends Activity {
 
 
     }
+    public static String getDeviceIdentification() {
+        String manufacturer = Build.MANUFACTURER;
+        String model = Build.MODEL;
+        return (manufacturer == null ? "unknown" : manufacturer) + "_" + (model == null ? "unknown" : model) + "_" + Build.VERSION.SDK_INT;
+    }
+    public static String getFullDate(){
+        Date cDate = new Date();
+        return new SimpleDateFormat("yyyy-MM-dd-kk-mm").format(cDate);
+    }
+
     public void saveToFile() {
         EditText eText_field=(EditText)findViewById(R.id.etext);
         String file_name=eText_field.getText().toString();
-        File file= new File(Environment.getExternalStorageDirectory().getPath() + "/" + file_name + "_all.txt");
+        File file= new File(Environment.getExternalStorageDirectory().getPath() + "/" + getFullDate() + "_scan_all_" + getDeviceIdentification() + "_" + file_name + ".txt");
         try {
             file.createNewFile();
             buff = new BufferedWriter(new FileWriter(file));

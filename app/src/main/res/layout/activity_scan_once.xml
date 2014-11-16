@@ -22,9 +22,9 @@
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="50dp"
-        android:text="Save and Go to Hell"
+        android:text="Save"
         android:id="@+id/button_save_once"
         android:layout_alignTop="@+id/etext_once"
         android:layout_alignParentRight="true"

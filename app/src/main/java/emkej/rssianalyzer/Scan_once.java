@@ -18,6 +18,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class Scan_once extends Activity {
@@ -80,10 +82,23 @@ public class Scan_once extends Activity {
             }
         });
     }
+
+
+
+        public static String getDeviceIdentification() {
+            String manufacturer = Build.MANUFACTURER;
+            String model = Build.MODEL;
+            return (manufacturer == null ? "unknown" : manufacturer) + "_" + (model == null ? "unknown" : model) + "_" + Build.VERSION.SDK_INT;
+        }
+        public static String getFullDate(){
+            Date cDate = new Date();
+            return new SimpleDateFormat("yyyy-MM-dd-kk-mm").format(cDate);
+        }
+
     public void saveToFile() {
         EditText eTextOnce=(EditText)findViewById(R.id.etext_once);
         String filename=eTextOnce.getText().toString();
-        File file= new File(Environment.getExternalStorageDirectory().getPath() + "/" + filename + "_once.txt");
+        File file= new File(Environment.getExternalStorageDirectory().getPath() + "/" + getFullDate() + "_scan_once_" + getDeviceIdentification() + "_" + filename + ".txt");
         try {
             file.createNewFile();
             buf = new BufferedWriter(new FileWriter(file));
@@ -106,3 +121,4 @@ public class Scan_once extends Activity {
         super.onPause();
     }
 }
+
