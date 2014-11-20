@@ -70,7 +70,7 @@ public class Scan_save extends Activity {
                     }
                     str_builder.append(result.SSID).append(";").append(result.BSSID).append(";")
                             .append(result.capabilities).append(";").append(result.frequency).append(";")
-                            .append(result.level).append(";").append(channel).append(";");
+                            .append(result.level).append(";").append(result.level + 100).append(";").append(channel).append(";");
                     str_builder.append(System.getProperty("line.separator"));
 
                 }

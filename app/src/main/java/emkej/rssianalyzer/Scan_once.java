@@ -44,7 +44,7 @@ public class Scan_once extends Activity {
                 }
                 sb.append(result.SSID).append(";").append(result.BSSID).append(";")
                         .append(result.capabilities).append(";").append(result.frequency).append(";")
-                        .append(result.level).append(";").append(channel).append(";");
+                        .append(result.level).append(";").append(result.level + 100).append(";").append(channel).append(";");
                 sb.append(System.getProperty("line.separator"));
 
 
@@ -101,8 +101,9 @@ public class Scan_once extends Activity {
         File file= new File(Environment.getExternalStorageDirectory().getPath() + "/" + getFullDate() + "_scan_once_" + getDeviceIdentification() + "_" + filename + ".txt");
         try {
             file.createNewFile();
-            buf = new BufferedWriter(new FileWriter(file));
-            buf.write(String.valueOf(sb));
+                buf = new BufferedWriter(new FileWriter(file));
+                buf.write(String.valueOf(sb));
+
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
