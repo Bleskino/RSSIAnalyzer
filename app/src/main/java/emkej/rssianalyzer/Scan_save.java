@@ -75,7 +75,6 @@ public class Scan_save extends Activity {
 
                 }
             startTime = endTime;
-                str_builder.append(System.getProperty("line.separator"));
                 str_onscreen.append(System.getProperty("line.separator"));
             }
 
