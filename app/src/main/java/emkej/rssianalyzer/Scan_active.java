@@ -86,6 +86,7 @@ public class Scan_active extends Activity{
         registerReceiver(recWifi, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
         startScanActive();
 
+
         lastTime = System.nanoTime();
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +122,7 @@ public class Scan_active extends Activity{
             e.printStackTrace();
         }
     }
+
     public void saveToFile() {
         EditText edittxt=(EditText)findViewById(R.id.etext_active);
         String name=edittxt.getText().toString();
