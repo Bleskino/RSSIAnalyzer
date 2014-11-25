@@ -12,5 +12,6 @@
     <string name="scanning_save">Scanning all data</string>
     <string name="title_activity_scan_once">Scan_once</string>
     <string name="scan_once">One Scan One Save</string>
+    <string name="title_activity_scan_active">Active Scanning</string>
 
 </resources>

@@ -39,5 +39,16 @@
         android:layout_below="@+id/button1"
         android:layout_marginTop="50dp" />
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Full Active Scan"
+        android:id="@+id/button5"
+        android:layout_below="@+id/button4"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="50dp" />
+
 
 </RelativeLayout>

@@ -15,6 +15,7 @@ public class Analyzer extends Activity {
         Button btn1=(Button)findViewById(R.id.button1);
         Button btn2=(Button)findViewById(R.id.button2);
         Button btn4=(Button)findViewById(R.id.button4);
+        Button btn5=(Button)findViewById(R.id.button5);
 
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +38,12 @@ public class Analyzer extends Activity {
                 startActivity(new Intent(getApplicationContext(),Scan_once.class));
 
         }});
+        btn5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Scan_active.class));
+            }
+        });
     }
 
 }

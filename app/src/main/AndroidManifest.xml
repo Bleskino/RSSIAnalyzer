@@ -42,6 +42,11 @@
             android:label="@string/scan_once"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".Scan_active"
+            android:label="@string/title_activity_scan_active"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>
